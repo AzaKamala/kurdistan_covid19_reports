@@ -28,9 +28,47 @@ class SimpleApp(server.App):
     title = "Kurdistan Covid19 Reports"
     inputs = []
 
-    tabs = ['Erbil', 'Sulaymaniyah', 'Halabja', 'Duhok']
+    tabs = ['Erbil', 'Sulaymani', 'Halabja', 'Duhok']
 
-    outputs = []
+    outputs = [
+        dict(
+            type='table',
+            id='getErbilTable',
+            tab='Erbil',
+            sortable=True,
+        ),
+        dict(
+            type='table',
+            id='getSulaymaniTable',
+            tab='Sulaymani',
+            sortable=True,
+        ),
+        dict(
+            type='table',
+            id='getHalabjaTable',
+            tab='Halabja',
+            sortable=True,
+        ),
+        dict(
+            type='table',
+            id='getDuhokTable',
+            tab='Duhok',
+            sortable=True,
+        ),
+    ]
+
+    def getErbilTable(self, params):
+        return governorates_data['erbil']
+
+    def getSulaymaniTable(self, params):
+        return governorates_data['sulaymani']
+
+    def getHalabjaTable(self, params):
+        return governorates_data['halabja']
+
+    def getDuhokTable(self, params):
+        return governorates_data['duhok']
+    
 
 app = SimpleApp()
 app.launch()
