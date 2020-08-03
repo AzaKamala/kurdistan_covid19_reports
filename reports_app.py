@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import io
 import datetime
+import data_helper
 
 links = [
     'https://raw.githubusercontent.com/DevelopersTree/Kovid19/master/data/governorates/erbil.csv',
@@ -25,49 +26,57 @@ for i in range(4):
     governorates_data[governorates[i]] = covid_df
 
 class SimpleApp(server.App):
-    title = "Kurdistan Covid19 Reports"
+    title = "Kurdistan Covid-19 Reports"
     inputs = []
 
     tabs = ['Erbil', 'Sulaymani', 'Halabja', 'Duhok']
 
     outputs = [
         dict(
-            type='table',
+            type='html',
+            id='getErbilInfo',
+            tab='Erbil',
+        ),
+        dict(
+            type='html',
             id='getErbilTable',
             tab='Erbil',
-            sortable=True,
         ),
         dict(
-            type='table',
+            type='html',
             id='getSulaymaniTable',
             tab='Sulaymani',
-            sortable=True,
         ),
         dict(
-            type='table',
+            type='html',
             id='getHalabjaTable',
             tab='Halabja',
-            sortable=True,
         ),
         dict(
-            type='table',
+            type='html',
             id='getDuhokTable',
             tab='Duhok',
-            sortable=True,
         ),
     ]
 
+    def getErbilInfo(self, params):
+        return '<div><h2>{} Reports</h2><h4>Active Cases: {}</h4><h4>New Cases Per Day: {}</h4><h4>Recoveries Per day: {}</h4><h4>Deaths Per day: {}</h4></div>'.format('Erbil', 0, 0, 0, 0)
+
     def getErbilTable(self, params):
-        return governorates_data['erbil']
+        data = data_helper.formatGovernorateData(governorates_data['erbil'])
+        return data_helper.renderHtml(data)
 
     def getSulaymaniTable(self, params):
-        return governorates_data['sulaymani']
+        data = data_helper.formatGovernorateData(governorates_data['sulaymani'])
+        return data_helper.renderHtml(data)
 
     def getHalabjaTable(self, params):
-        return governorates_data['halabja']
+        data = data_helper.formatGovernorateData(governorates_data['halabja'])
+        return data_helper.renderHtml(data)
 
     def getDuhokTable(self, params):
-        return governorates_data['duhok']
+        data = data_helper.formatGovernorateData(governorates_data['duhok'])
+        return data_helper.renderHtml(data)
     
 
 app = SimpleApp()
