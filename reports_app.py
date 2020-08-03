@@ -44,13 +44,28 @@ class SimpleApp(server.App):
         ),
         dict(
             type='html',
+            id='getSulaymaniInfo',
+            tab='Sulaymani',
+        ),
+        dict(
+            type='html',
             id='getSulaymaniTable',
             tab='Sulaymani',
         ),
         dict(
             type='html',
+            id='getHalabjaInfo',
+            tab='Halabja',
+        ),
+        dict(
+            type='html',
             id='getHalabjaTable',
             tab='Halabja',
+        ),
+        dict(
+            type='html',
+            id='getDuhokInfo',
+            tab='Duhok',
         ),
         dict(
             type='html',
@@ -60,19 +75,28 @@ class SimpleApp(server.App):
     ]
 
     def getErbilInfo(self, params):
-        return '<div><h2>{} Reports</h2><h4>Active Cases: {}</h4><h4>New Cases Per Day: {}</h4><h4>Recoveries Per day: {}</h4><h4>Deaths Per day: {}</h4></div>'.format('Erbil', 0, 0, 0, 0)
+        return data_helper.getCityInfo('erbil', governorates_data['erbil'])
 
     def getErbilTable(self, params):
         data = data_helper.formatGovernorateData(governorates_data['erbil'])
         return data_helper.renderHtml(data)
 
+    def getSulaymaniInfo(self, params):
+        return data_helper.getCityInfo('sulaymani', governorates_data['sulaymani'])
+
     def getSulaymaniTable(self, params):
         data = data_helper.formatGovernorateData(governorates_data['sulaymani'])
         return data_helper.renderHtml(data)
 
+    def getHalabjaInfo(self, params):
+        return data_helper.getCityInfo('halabja', governorates_data['halabja'])
+
     def getHalabjaTable(self, params):
         data = data_helper.formatGovernorateData(governorates_data['halabja'])
         return data_helper.renderHtml(data)
+
+    def getDuhokInfo(self, params):
+        return data_helper.getCityInfo('duhok', governorates_data['duhok'])
 
     def getDuhokTable(self, params):
         data = data_helper.formatGovernorateData(governorates_data['duhok'])

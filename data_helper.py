@@ -74,3 +74,6 @@ def renderHtml(dataframe):
         subset=pd.IndexSlice[:, ['Recovered']]
     ).render()
 
+def getCityInfo(cityName, dataframe):
+    html = '<div><h2 style="text-align: center;">{} Report</h2><h4>Active Cases: {}</h4><h4>New Cases Per Day: {}</h4><h4>Recoveries Per day: {}</h4><h4>Deaths Per day: {}</h4></div>'
+    return html.format(cityName.title(), int(dataframe.loc[len(dataframe)-1, ['ActiveCases']]), round(dataframe['TotalNewCases'].mean()), round(dataframe['Recovered'].mean()), round(dataframe['Deaths'].mean()))
